@@ -1,8 +1,7 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { CoffeesController } from './coffees/coffees.controller';
-import { CoffeesService } from './coffees/coffees.service';
+import { CoffeesModule } from './coffees/coffees.module';
 
 /*
 - A module in NestJS represents a cohesive block of the application, organizing related components such as controllers, services, and other modules. It acts as a container for different parts of the application, providing a way to group and encapsulate related functionality.
@@ -12,8 +11,8 @@ Modules are created using the @Module() decorator in NestJS, and they define the
 */
 
 @Module({
-  imports: [],
-  controllers: [AppController, CoffeesController],
-  providers: [AppService, CoffeesService],
+  imports: [CoffeesModule],
+  controllers: [AppController],
+  providers: [AppService],
 })
 export class AppModule {}
