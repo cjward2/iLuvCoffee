@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { CoffeesModule } from './coffees/coffees.module';
+import { TypeOrmModule } from '@nestjs/typeorm';
 
 /*
 - A module in NestJS represents a cohesive block of the application, organizing related components such as controllers, services, and other modules. It acts as a container for different parts of the application, providing a way to group and encapsulate related functionality.
@@ -11,7 +12,19 @@ Modules are created using the @Module() decorator in NestJS, and they define the
 */
 
 @Module({
-  imports: [CoffeesModule],
+  imports: [
+    CoffeesModule,
+    TypeOrmModule.forRoot({
+      type: 'postgres', // type of our database
+      host: 'localhost', // database host
+      port: 5432, // database host
+      username: 'postgres', // username
+      password: 'pass123', // user password
+      database: 'postgres', // name of our database,
+      autoLoadEntities: true, // models will be loaded automatically
+      synchronize: true, // your entities will be synced with the database(recommended: disable in prod)
+    }),
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
